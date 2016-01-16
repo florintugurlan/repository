@@ -41,362 +41,293 @@
 
   <hr/>
 
-  <!-- /resources1 -->
-  <div class="container">
+  <!-- /resources1 -->  <!--Facultate -->
+  <div class="container" ng-controller="HomeController">
     <h1><a name="Facultate">Facultate</a></h1>
     <h2>List all resources</h2>
     <table class="table table-bordered table-hover">
       <tr>
-        <th>ID</th>
-        <th>Nume</th>
-        <th style="width:210px;">Options</th>
+        <th ng-repeat="key in keys">{{ key }}</th>
+        <th style = "width:210px;">Options</th>
       </tr>
-      <tr>
-        <td>1</td>
-        <td>Automatica si Calculatoare</td>
-		<td>
-          <a href="">
-            <span class="label label-success">
-              Open
-              <span class="glyphicon glyphicon-folder-open"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-primary">
-              Edit
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-danger">
-              Remove
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>IMST</td>
-        <td>
-          <a href="">
-            <span class="label label-success">
-              Open
-              <span class="glyphicon glyphicon-folder-open"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-primary">
-              Edit
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-danger">
-              Remove
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Transporturi</td>
-        <td>
-          <a href="">
-            <span class="label label-success">
-              Open
-              <span class="glyphicon glyphicon-folder-open"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-primary">
-              Edit
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-danger">
-              Remove
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
+      <tr ng-repeat="item in facultati.data" data-id="{{ item.id  }}">
+        <td>{{ item.name  }}</td>
+	 	    <td>{{ item.id  }}</td>
+		    <td>
+          <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myFacultateModal" ng-click = "setReadFacultate(item)">
+            Open
+            <span class="glyphicon glyphicon-folder-open"></span>
+          </button>
+          <button ng-click="setUpdateFacultate(item)" class="btn btn-info btn-xs">
+            Edit
+            <span class="glyphicon glyphicon-edit"></span>
+          </button>
+          <button ng-click="deleteFacultate(item.id)" class="btn btn-danger btn-xs">
+            Remove
+            <span class="glyphicon glyphicon-remove"></span>
+          </button>
         </td>
       </tr>
     </table>
+   <div class="row">
+   <div class="col-md-4">
+    <h2>Add new faculty</h2>
+    <table>
+      <tr>
+        <td>ID</td>
+        <td><input type="text" class="form-control" ng-model="faculty.id" /></td>
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td><input type="text" class="form-control" ng-model="faculty.name" /></td>
+      </tr>
+        <td colspan="2">
+          <button ng-click="addFacultate(faculty)" class="btn btn-primary btn-xs">Add</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-md-4 col-md-offset-4">
+    <h2>Edit a faculty</h2>
+    <table>
+      <tr>
+        <td>ID</td>
+        <td><input type="text" class="form-control" ng-model="editFaculty.id" /></td>
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td><input type="text" class="form-control" ng-model="editFaculty.name" /></td>
+      </tr>
+        <td colspan="2">
+          <button class="btn btn-info btn-xs" ng-click="updateFaculty()">
+            Update
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  </div>
+  
 
-    <div class="row">
-      <div class="col-md-4">
-        <h2>Edit a faculty</h2>
-        <form action="" method="">
-          <div class="form-group">
-            <label for="attribute1">ID</label>
-            <input type="text" class="form-control" id="attribute1" placeholder="noul ID">
+     <!--modal-->
+    <div class="modal fade" id="myFacultateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Facultate</h4>
           </div>
-          <div class="form-group">
-            <label for="attribute2">Nume</label>
-            <input type="text" class="form-control" id="attribute2" placeholder="noul Nume">
-          </div>
-          <button type="submit" class="btn btn-info">Save</button>
-        </form>
-      </div>
-
-
-      <div class="col-md-4 col-md-offset-4">
-        <h2>Add a faculty</h2>
-        <form action="" method="">
-       <div class="form-group">
-            <label for="attribute1">ID</label>
-            <input type="text" class="form-control" id="attribute1" placeholder="Introduceti ID">
-          </div>
-          <div class="form-group">
-            <label for="attribute2">Nume</label>
-            <input type="text" class="form-control" id="attribute2" placeholder="Introduceti Facultate">
-          </div>
-          <button type="submit" class="btn btn-success">Add</button>
-        </form>
+          <div class="modal-body">
+           <div class="form-group">
+              <label for="attribute1">Id</label>
+              <input type="text" class="form-control" ng-value="readFacultate.id" ng-readonly="true" n>
+            </div>
+            <div class="form-group">
+              <label for="attribute2">Nume</label>
+              <input type="text" class="form-control"  ng-readonly="true" ng-value="readFacultate.name">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
+</div>
 
-  <hr/>
-
-  <!-- /resources2-->
-  <div class="container">
+  <!--Produs-->
+   <!-- /resources2-->
+  <div class="container" ng-controller="HomeController">
     <h1><a name="Produs">Produs</a></h1>
     <h2>List all resources</h2>
     <table class="table table-bordered table-hover">
       <tr>
-        <th>ID</th>
-        <th>Denumire</th>
+        <th ng-repeat="key in keysp">{{ key }}</th>
         <th style="width:210px;">Options</th>
       </tr>
-      <tr>
-        <td>1</td>
-        <td>Lapte</td>
+      <tr ng-repeat="item in produse.data" data-id="{{ item.id }}">
+        <td>{{ item.name }}</td>
+        <td>{{ item.id }}</td>
         <td>
-          <a href="">
-            <span class="label label-success">
-              Open
-              <span class="glyphicon glyphicon-folder-open"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-primary">
-              Edit
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-danger">
+          <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myProductModal" ng-click = "setReadProdus(item)">
+            Open
+            <span class="glyphicon glyphicon-folder-open"></span>
+          </button>
+          <button ng-click="setUpdateProdus(item)" class="btn btn-info btn-xs">
+            Edit
+            <span class="glyphicon glyphicon-edit"></span>
+          </button>
+          <button ng-click="deleteProdus(item.id)" class="btn btn-danger btn-xs">
               Remove
               <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Paine</td>
-        <td>
-          <a href="">
-            <span class="label label-success">
-              Open
-              <span class="glyphicon glyphicon-folder-open"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-primary">
-              Edit
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-danger">
-              Remove
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Ulei</td>
-        <td>
-          <a href="">
-            <span class="label label-success">
-              Open
-              <span class="glyphicon glyphicon-folder-open"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-primary">
-              Edit
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-danger">
-              Remove
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
-        </td>
+          </button>
+          </td>
       </tr>
     </table>
 
-    <div class="row">
-      <div class="col-md-4">
-        <h2>Edit a product</h2>
-        <form action="" method="">
-          <div class="form-group">
-            <label for="attribute1">ID</label>
-            <input type="text" class="form-control" id="attribute1" placeholder="noul ID">
-          </div>
-          <div class="form-group">
-            <label for="attribute2">Denumire</label>
-            <input type="text" class="form-control" id="attribute2" placeholder="noua Denumire">
-          </div>
-         <button type="submit" class="btn btn-info">Save</button>
-        </form>
-      </div>
+  <div class="row">
+   <div class="col-md-4">
+    <h2>Add new product</h2>
+    <table>
+      <tr>
+        <td>ID</td>
+        <td><input type="text" class="form-control" ng-model="produs.id" /></td>
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td><input type="text" class="form-control" ng-model="produs.name" /></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button ng-click="addProdus(produs)" class="btn btn-primary btn-xs">Add</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-md-4 col-md-offset-4">
+    <h2>Edit a product</h2>
+    <table>
+      <tr>
+        <td>ID</td>
+        <td><input type="text" class="form-control" ng-model="editProdus.id" /></td>
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td><input type="text" class="form-control" ng-model="editProdus.name" /></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button class="btn btn-info btn-xs" ng-click="updateProdus()">
+            Update
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  </div>
+  
 
-
-      <div class="col-md-4 col-md-offset-4">
-        <h2>Add a product</h2>
-        <form action="" method="">
+     <!--modal-->
+    <div class="modal fade" id="myProductModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Produs</h4>
+          </div>
+          <div class="modal-body">
            <div class="form-group">
-            <label for="attribute1">ID</label>
-            <input type="text" class="form-control" id="attribute1" placeholder="Introduceti ID">
+              <label for="attribute1">Id</label>
+              <input type="text" class="form-control" ng-value="readProdus.id" ng-readonly="true" n>
+            </div>
+            <div class="form-group">
+              <label for="attribute2">Nume</label>
+              <input type="text" class="form-control"  ng-readonly="true" ng-value="readProdus.name">
+            </div>
           </div>
-          <div class="form-group">
-            <label for="attribute2">Denumire</label>
-            <input type="text" class="form-control" id="attribute2" placeholder="Introduceti Denumirea">
-          </div>
-          <button type="submit" class="btn btn-success">Add</button>
-        </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
+ </div>
 
-  <hr/>
-	<!-- /resources3-->
-   <div class="container">
+  <!-- player-->
+  <div class="container" ng-controller="HomeController">
     <h1><a name="Player">Player</a></h1>
     <h2>List all resources</h2>
     <table class="table table-bordered table-hover">
       <tr>
-        <th>ID</th>
-    	<th>Nume</th>
-        <th style="width:210px;">Options</th>
+        <th ng-repeat="key in keysc">{{ key }}</th>
+        <th style = "width:210px;">Options</th>
       </tr>
-      <tr>
-        <td>1</td>
-    	<td>Messi</td>
+      <tr ng-repeat="item in players.data" data-id="{{ item.id  }}">
+        <td>{{ item.name  }}</td>
+        <td>{{ item.id }}</td>
         <td>
-          <a href="">
-            <span class="label label-success">
-              Open
-              <span class="glyphicon glyphicon-folder-open"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-primary">
-              Edit
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-danger">
-              Remove
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td>2</td>
-    	<td>Iniesta</td> 
-        <td>
-          <a href="">
-            <span class="label label-success">
-              Open
-              <span class="glyphicon glyphicon-folder-open"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-primary">
-              Edit
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-danger">
-              Remove
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td>3</td>
-    	<td>Neymar</td>
-        <td>
-          <a href="">
-            <span class="label label-success">
-              Open
-              <span class="glyphicon glyphicon-folder-open"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-primary">
-              Edit
-              <span class="glyphicon glyphicon-edit"></span>
-            </span>
-          </a>
-          <a href="">
-            <span class="label label-danger">
-              Remove
-              <span class="glyphicon glyphicon-remove"></span>
-            </span>
-          </a>
+          <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myPlayerModal" ng-click="setReadPlayer(item)">
+            Open
+            <span class="glyphicon glyphicon-folder-open"></span>
+          </button>
+          <button ng-click="setUpdatePlayer(item)" class="btn btn-info btn-xs">
+            Edit
+            <span class="glyphicon glyphicon-edit"></span>
+          </button>
+          <button ng-click="deletePlayer(item.id)" class="btn btn-danger btn-xs">
+            Remove
+            <span class="glyphicon glyphicon-remove"></span>
+          </button>
         </td>
       </tr>
     </table>
+   <div class="row">
+   <div class="col-md-4">
+    <h2>Add new player</h2>
+    <table>
+      <tr>
+        <td>ID</td>
+        <td><input type="text" class="form-control" ng-model="player.id" /></td>
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td><input type="text" class="form-control" ng-model="player.name" /></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button ng-click="addPlayer(player)" class="btn btn-primary btn-xs">Add</button>
+        </td>
+      </tr>
+    </table>
+    </div>
+    <div class="col-md-4 col-md-offset-4">
+    <h2>Edit a player</h2>
+    <table>
+      <tr>
+        <td>ID</td>
+        <td><input type="text" class="form-control" ng-model="editPlayer.id" /></td>
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td><input type="text" class="form-control" ng-model="editPlayer.name" /></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button class="btn btn-info btn-xs" ng-click="updatePlayer()">
+            Update
+          </button>
+        </td>
+      </tr>
+    </table>
+    </div>
+    </div>
+    
 
-    <div class="row">
-      <div class="col-md-4">
-        <h2>Edit a player</h2>
-        <form action="" method="">
-          <div class="form-group">
-            <label for="attribute1">ID</label>
-            <input type="text" class="form-control" id="attribute1" placeholder="noul ID">
+ <!--modal-->
+    <div class="modal fade" id="myPlayerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Player</h4>
           </div>
-          <div class="form-group">
-            <label for="attribute2">Nume</label>
-            <input type="text" class="form-control" id="attribute2" placeholder="noul Nume">
+          <div class="modal-body">
+           <div class="form-group">
+              <label for="attribute1">Id</label>
+              <input type="text" class="form-control" ng-value="readPlayer.id" ng-readonly="true" />
+            </div>
+            <div class="form-group">
+              <label for="attribute2">Nume</label>
+              <input type="text" class="form-control"  ng-readonly="true" ng-value="readPlayer.name" />
+            </div>
           </div>
-          <button type="submit" class="btn btn-info">Save</button>
-        </form>
-      </div>
-
-
-      <div class="col-md-4 col-md-offset-4">
-        <h2>Add a player</h2>
-        <form action="" method="">
-         <div class="form-group">
-            <label for="attribute1">ID</label>
-            <input type="text" class="form-control" id="attribute1" placeholder="Introduceti ID">
-          </div>
-          <div class="form-group">
-            <label for="attribute2">Nume</label>
-            <input type="text" class="form-control" id="attribute2" placeholder="Introduceti Numele">
-          </div>
-          <button type="submit" class="btn btn-success">Add</button>
-        </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
+</div>
 
   <hr/>
   <div class="container">

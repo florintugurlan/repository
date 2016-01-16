@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,26 +54,17 @@ public class playercontroller {
   }
 
 
-    @RequestMapping(value="/player/{id}", method = RequestMethod.PUT)
-    public ResponseEntity update(@PathVariable("id") int id) {
-        for(player p : this.Barcelona) {
-            if(p.getId() == id) {
-                p.setNume("playerNou");
-                p.setid(1);
-
-                return new ResponseEntity<player>(p, new HttpHeaders(), HttpStatus.OK);
-            }
-        }
-        return new ResponseEntity<String>(null, new HttpHeaders(), HttpStatus.NOT_FOUND);
-   }
-
-    @RequestMapping(value="/p", method = RequestMethod.POST)
-    public ResponseEntity create() {
-		int size = this.Barcelona.size();
-        player p = new player(size+1,"Suarez");
-        this.Barcelona.add(p);
-        return new ResponseEntity<player>(p, new HttpHeaders(), HttpStatus.OK);
+    @RequestMapping(value="/player/{id}",method=RequestMethod.PUT)
+    public ResponseEntity update(@RequestBody player a) {
+      
+      this.Barcelona.set(a.getId() - 1,a);
+      return new ResponseEntity<player>(a, new HttpHeaders(), HttpStatus.OK);
     }
 
 
-}
+    @RequestMapping(value="/player",method=RequestMethod.POST)
+    public ResponseEntity create(@RequestBody player a) {
+      this.Barcelona.add(a);
+      return new ResponseEntity<player>(a, new HttpHeaders(), HttpStatus.OK);
+    }
+  }

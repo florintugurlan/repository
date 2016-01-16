@@ -18,14 +18,6 @@ public class facultate {
       return this.name;
   }
 
-public void setNume(String name) {
-       this.name = name;
-   }
-
- public void setid(int id) {
-      this.id = id;
-   }
-
   public int getId() {
     return this.id;
   }

@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,27 +53,16 @@ public class facultatecontroller {
     return new ResponseEntity<String>(null, new HttpHeaders(), HttpStatus.NOT_FOUND);
   }
 
-
-    @RequestMapping(value="/facultate/{id}", method = RequestMethod.PUT)
-    public ResponseEntity update(@PathVariable("id") int id) {
-        for(facultate f : this.Politehnica) {
-            if(f.getId() == id) {
-                f.setNume("facultateNou");
-                f.setid(1);
-
-                return new ResponseEntity<facultate>(f, new HttpHeaders(), HttpStatus.OK);
-            }
-        }
-        return new ResponseEntity<String>(null, new HttpHeaders(), HttpStatus.NOT_FOUND);
-   }
-
-    @RequestMapping(value="/f", method = RequestMethod.POST)
-    public ResponseEntity create() {
-		int size = this.Politehnica.size();
-        facultate f = new facultate(size+1,"Inginerie Electrica");
-        this.Politehnica.add(f);
-        return new ResponseEntity<facultate>(f, new HttpHeaders(), HttpStatus.OK);
+  @RequestMapping(value="/facultate/{id}",method=RequestMethod.PUT)
+    
+    public ResponseEntity update(@RequestBody facultate a){
+      this.Politehnica.set(a.getId() - 1, a);
+      return new ResponseEntity<facultate>(a, new HttpHeaders(), HttpStatus.OK);
     }
 
-
-}
+  @RequestMapping(value="/facultate",method=RequestMethod.POST)
+      public ResponseEntity create(@RequestBody facultate a) {
+        this.Politehnica.add(a);
+        return new ResponseEntity<facultate>(a, new HttpHeaders(), HttpStatus.OK);
+     }
+   }
